@@ -34,13 +34,28 @@ textarea { width: 50%; height: 100%; }
 
 100.64.0.0/10
 
+# This section demonstrates how the "typically low-end prefixes" are merged in binary form
+
+## 192.168.0.0/24
+110000001010100000000000
+
+## 192.168.1.0/24
+110000001010100000000001
+
+# Togather
+110000001010100000000000
+110000001010100000000001
+
+# Expect:
+11000000101010000000000
+
 # Additional comments after all prefixes if any
 </textarea><textarea id="leave" readonly></textarea>
 <script src="BinaryPrefixMerger.js"></script>
 <script>
 var d = 0x100000000.toString(2).substr(1);
 var p = "([1-9]?[0-9]|1[0-9]{2}|2(?:[0-4][0-9]|5[0-5]))";
-var rp = p + "\\." + p + "\\." + p + "\\." + p + "\\/([12]?[0-9])\\s*(#.*)?$";
+var rp = p + "\\." + p + "\\." + p + "\\." + p + "\\/([12]?[0-9])\\s*(?:#.*)?$";
 var rx = new RegExp("^\\s*" + rp);
 var rc = new RegExp("^\\s*(#(\\s*" + rp + ")?|$)");
 function bits(s) {
