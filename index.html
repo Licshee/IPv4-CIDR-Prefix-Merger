@@ -78,30 +78,30 @@ function $refresh(){
 
 	var txt = enter.value.split(/\r\n?|\n/);
 	var o = merger(bits);
-		for(var i = 0; i < txt.length; i++){
-			var line = txt[i];
-			var m = /^\s*(#|$)/.exec(line);
-			if(!m){
-				if(!/^\s*$/.test(buffer)) result += buffer;
-				buffer = '';
+	for(var i = 0; i < txt.length; i++){
+		var line = txt[i];
+		var m = /^\s*(#|$)/.exec(line);
+		if(!m){
+			if(!/^\s*$/.test(buffer)) result += buffer;
+			buffer = '';
+		}else{
+			if(m[0] != '#'){
+				buffer += '\r\n';
 			}else{
-				if(m[0] != '#'){
-					buffer += '\r\n';
-				}else{
-					dump(o, '', 0), dump(o, '', 1);
-					o = merger(bits);
-					buffer += line + '\r\n';
-				}
-				continue;
+				dump(o, '', 0), dump(o, '', 1);
+				o = merger(bits);
+				buffer += line + '\r\n';
 			}
-			try{
-				o.push(line);
-			}catch(ex){
-				buffer += "#[ERROR]Unrecognizable: " + line + '\r\n';
-			}
+			continue;
 		}
-		dump(o, '', 0), dump(o, '', 1);
-		leave.value = result + buffer;
+		try{
+			o.push(line);
+		}catch(ex){
+			buffer += "#[ERROR]Unrecognizable: " + line + '\r\n';
+		}
+	}
+	dump(o, '', 0), dump(o, '', 1);
+	leave.value = result + buffer;
 };
 var last;
 function $changed(){
