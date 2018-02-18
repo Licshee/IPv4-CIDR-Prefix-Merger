@@ -12,6 +12,7 @@ textarea { width: 50%; height: 100%; }
 # Private network prefixes used by typically low-end routers
 
 192.168.0.0/24
+192.168.0.0.2	# wrong input
 192.168.1.0/24
 
 
@@ -97,7 +98,7 @@ function $refresh(){
 			try{
 				o.push(line);
 			}catch(ex){
-				buffer += ex + '\r\n';
+				buffer += "#[ERROR]Unrecognizable: " + line + '\r\n';
 			}
 		}
 		dump(o, '', 0), dump(o, '', 1);
