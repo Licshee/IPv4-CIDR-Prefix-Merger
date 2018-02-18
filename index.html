@@ -10,18 +10,27 @@ textarea { width: 50%; height: 100%; }
 <textarea id="enter"># DEMO
 
 # Private network prefixes used by typically low-end routers
+
 192.168.0.0/24
 192.168.1.0/24
 
+
 # Default prefix used by MikroTik RouterBOARD/RouterOS
+
 192.168.88.0/24
 
+
 # Prefixes for bigger networks
+
 172.16.0.0/12
 10.0.0.0/8
 
+
 # Shared address space for carrier-grade NAT
+
 100.64.0.0/10
+
+# END
 </textarea><textarea id="leave" readonly></textarea>
 <script src="BinaryPrefixMerger.js"></script>
 <script>
@@ -47,7 +56,7 @@ function bits(s) {
 	return function() { return JSON.parse(s.shift()) };
 }
 function $refresh(){
-	var result = '';
+	var result = '', buffer = '';
 	function append(s){
 		var l = s.length;
 		s = s + d;
@@ -71,11 +80,24 @@ function $refresh(){
 	try{
 		for(var i = 0; i < txt.length; i++){
 			var line = txt[i];
-			if(/^(#|\s*$)/.test(line)) continue;
+			var m = /^\s*(#|$)/.exec(line);
+			if(!m){
+				if(!/^\s*$/.test(buffer)) result += buffer;
+				buffer = '';
+			}else{
+				if(m[0] != '#'){
+					buffer += '\r\n';
+				}else{
+					dump(o, '', 0), dump(o, '', 1);
+					o = merger(bits);
+					buffer += line + '\r\n';
+				}
+				continue;
+			}
 			o.push(line);
 		}
 		dump(o, '', 0), dump(o, '', 1);
-		leave.value = result;
+		leave.value = result + buffer;
 	}catch(ex){
 		leave.value = ex;
 	}
