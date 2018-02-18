@@ -12,6 +12,8 @@ textarea { width: 50%; height: 100%; }
 # Private network prefixes used by typically low-end routers
 
 192.168.1.0/24	# Comments in the line-end after a valid prefix won't break merging job
+#192.168.0.0/16	# This line is commented out but it won't break the merging process
+
 192.168.0.0.2	# WRONG INPUT
 192.168.0.0/24
 
@@ -24,8 +26,6 @@ textarea { width: 50%; height: 100%; }
 # Prefixes for bigger networks
 
 172.16.0.0/12
-
-#192.168.0.0/16	# This line is commented out but it won't break the merging process
 
 10.0.0.0/8	# "Empty" lines will be stripped out if no pure comment line(s) between prefix lines
 
