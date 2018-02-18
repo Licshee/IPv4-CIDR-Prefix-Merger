@@ -8,11 +8,19 @@ body { margin: 0; }
 textarea { width: 50%; height: 100%; }
 </style>
 <textarea id="enter"># Input your IPv4 CIDR prefixes here, one prefix per line.
+
+# Private network prefixes used by usual routers
 192.168.0.0/24
 192.168.1.0/24
+
+# Default prefix used by MikroTik RouterBOARD/RouterOS
 192.168.88.0/24
+
+# Prefixes for bigger networks
 172.16.0.0/12
 10.0.0.0/8
+
+# Shared address space for carrier-grade NAT
 100.64.0.0/10
 </textarea><textarea id="leave" readonly></textarea>
 <script src="BinaryPrefixMerger.js"></script>
