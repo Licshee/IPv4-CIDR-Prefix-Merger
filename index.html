@@ -36,8 +36,8 @@ textarea { width: 50%; height: 100%; }
 <script src="BinaryPrefixMerger.js"></script>
 <script>
 var d = 0x100000000.toString(2).substr(1);
-var p = /([1-9]?[0-9]|1[0-9]{2}|2(?:[0-4][0-9]|5[0-5]))/.source;
-var r = new RegExp(p + "\\." + p + "\\." + p + "\\." + p + "\\/" + /([12]?[0-9])/.source);
+var p = "([1-9]?[0-9]|1[0-9]{2}|2(?:[0-4][0-9]|5[0-5]))";
+var r = new RegExp("^\\s*" + p + "\\." + p + "\\." + p + "\\." + p + "\\/([12]?[0-9])\\s*$");
 function bits(s) {
 	switch(arguments.length) {
 		case 1:
@@ -78,7 +78,6 @@ function $refresh(){
 
 	var txt = enter.value.split(/\r\n?|\n/);
 	var o = merger(bits);
-	// try{
 		for(var i = 0; i < txt.length; i++){
 			var line = txt[i];
 			var m = /^\s*(#|$)/.exec(line);
@@ -103,9 +102,6 @@ function $refresh(){
 		}
 		dump(o, '', 0), dump(o, '', 1);
 		leave.value = result + buffer;
-	// }catch(ex){
-	// 	leave.value = ex;
-	// }
 };
 var last;
 function $changed(){
