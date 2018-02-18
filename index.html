@@ -23,9 +23,9 @@ textarea { width: 50%; height: 100%; }
 
 # Prefixes for bigger networks
 
-#192.168.0.0/16
 172.16.0.0/12
 10.0.0.0/8
+#192.168.0.0/16
 
 
 # Shared address space for carrier-grade NAT
@@ -91,10 +91,13 @@ function $refresh(){
 			if(!m[1]){
 				buffer += '\r\n';
 			}else{
-				if(m[2]) continue;
-				dump(o, '', 0), dump(o, '', 1);
-				o = merger(bits);
-				buffer += line + '\r\n';
+				if(m[2]){
+					result += line + '\r\n';
+				}else{
+					dump(o, '', 0), dump(o, '', 1);
+					o = merger(bits);
+					buffer += line + '\r\n';
+				}
 			}
 			continue;
 		}
