@@ -104,15 +104,13 @@ function $refresh(){
 		var line = txt[i];
 		var m = rc.exec(line);
 		if(!m){
-			if(!/^\s*$/.test(buffer)) result += buffer;
-			buffer = '';
+			/\S/.test(buffer) && (result += buffer), buffer = '';
 		}else{
 			if(!m[1]){
 				buffer += LNND;
 			}else{
 				if(m[2]){
-					if(!/^\s*$/.test(buffer)) result += buffer;
-					buffer = '';
+					/\S/.test(buffer) && (result += buffer), buffer = '';
 					result += line + LNND;
 				}else{
 					dump(s, '', 0), dump(s, '', 1);
@@ -125,8 +123,7 @@ function $refresh(){
 		try{
 			s.push(line);
 		}catch(ex){
-			if(!/^\s*$/.test(buffer)) result += buffer;
-			buffer = '';
+			/\S/.test(buffer) && (result += buffer), buffer = '';
 			result += "#[ERROR]Unrecognizable: " + line + LNND;
 		}
 	}
