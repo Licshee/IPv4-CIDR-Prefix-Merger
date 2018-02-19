@@ -13,7 +13,7 @@ textarea { width: 50%; height: 100%; }
 
 192.168.1.0/24	# Comments in the line-end after a valid prefix won't break merging job
 
-192.168.0.0.2	# WRONG INPUT
+192.168.0.0.2	# PROBLEMATIC INPUT
 
 #192.168.0.0/16	# This line is completely commented out but it also won't break the merging process
 
@@ -29,7 +29,7 @@ textarea { width: 50%; height: 100%; }
 
 172.16.0.0/12
 
-10.0.0.0/8	# "Empty" lines will be stripped out if immediately between prefix lines
+10.0.0.0/8	# "Empty" lines will be stripped out if directly between prefix lines
 
 
 # Shared address space for carrier-grade NAT
