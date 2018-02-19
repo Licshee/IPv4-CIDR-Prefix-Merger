@@ -27,7 +27,7 @@ textarea { width: 50%; height: 100%; }
 
 172.16.0.0/12
 
-10.0.0.0/8	# "Empty" lines will be stripped out if no pure comment line(s) between prefix lines
+10.0.0.0/8	# "Empty" lines will be stripped out if immediately between prefix lines
 
 
 # Shared address space for carrier-grade NAT
@@ -55,15 +55,15 @@ textarea { width: 50%; height: 100%; }
 <script>
 var d = 0x100000000.toString(2).substr(1);
 var p = "([1-9]?[0-9]|1[0-9]{2}|2(?:[0-4][0-9]|5[0-5]))";
-var rp = p + "\\." + p + "\\." + p + "\\." + p + "\\/([12]?[0-9])\\s*(?:#.*)?$";
+var rp = "(?:" + p + "\\." + p + "\\." + p + "\\." + p + "\\/([12]?[0-9])|([01]{1,32}))\\s*(?:#.*)?$";
 var rx = new RegExp("^\\s*" + rp);
 var rc = new RegExp("^\\s*(#(\\s*" + rp + ")?|$)");
 function bits(s) {
 	switch(arguments.length) {
 		case 1:
 			if(Object.prototype.toString.call(s) === "[object String]") {
-				if(/^[01]+$/.test(s)) break;
 				var m = rx.exec(s);
+				if(s = m[6]) break;
 				s = m[1] * 16777216 + m[2] * 65536 + m[3] * 256 + m[4] * 1;
 				s = s.toString(2);
 				s = (d + s).substr(s.length, m[5]);
