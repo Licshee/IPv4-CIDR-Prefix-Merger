@@ -79,15 +79,14 @@ function bits(s) {
 }
 function $refresh(){
 	var result = '', buffer = '';
-	function append(s){
-		var l = s.length;
-		s = s + d;
+	function append(bits){
+		var s = bits + d;
 		s = parseInt(s.substr(0, 8), 2) + '.'
 		  + parseInt(s.substr(8, 8), 2) + '.'
 		  + parseInt(s.substr(16, 8), 2) + '.'
 		  + parseInt(s.substr(24, 8), 2) + '/'
-		  + l;
-		result += s + LNND;
+		  + bits.length;
+		result += s + "\t# " + bits + LNND;
 	}
 	function dump(o, bits, bit){
 		bits += bit;
