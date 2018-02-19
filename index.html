@@ -125,7 +125,9 @@ function $refresh(){
 		try{
 			s.push(line);
 		}catch(ex){
-			buffer += "#[ERROR]Unrecognizable: " + line + LNND;
+			if(!/^\s*$/.test(buffer)) result += buffer;
+			buffer = '';
+			result += "#[ERROR]Unrecognizable: " + line + LNND;
 		}
 	}
 	dump(s, '', 0), dump(s, '', 1);
