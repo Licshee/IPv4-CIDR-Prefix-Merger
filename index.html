@@ -97,7 +97,9 @@ function $refresh(){
 	}
 
 	var txt = enter.value.split(/\r\n?|\n/);
-	var o = merger(bits);
+	var s = txt.pop();
+	s && txt.push();
+	s = merger(bits);
 	for(var i = 0; i < txt.length; i++){
 		var line = txt[i];
 		var m = rc.exec(line);
@@ -112,20 +114,20 @@ function $refresh(){
 					result += buffer + line + LNND;
 					buffer = '';
 				}else{
-					dump(o, '', 0), dump(o, '', 1);
-					o = merger(bits);
+					dump(s, '', 0), dump(s, '', 1);
+					s = merger(bits);
 					buffer += line + LNND;
 				}
 			}
 			continue;
 		}
 		try{
-			o.push(line);
+			s.push(line);
 		}catch(ex){
 			buffer += "#[ERROR]Unrecognizable: " + line + LNND;
 		}
 	}
-	dump(o, '', 0), dump(o, '', 1);
+	dump(s, '', 0), dump(s, '', 1);
 	leave.value = result + buffer;
 };
 var last;
