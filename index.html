@@ -53,6 +53,7 @@ textarea { width: 50%; height: 100%; }
 </textarea><textarea id="leave" readonly></textarea>
 <script src="BinaryPrefixMerger.js"></script>
 <script>
+LNND = '\r\n';
 var d = 0x100000000.toString(2).substr(1);
 var p = "([1-9]?[0-9]|1[0-9]{2}|2(?:[0-4][0-9]|5[0-5]))";
 var rp = "(?:" + p + "\\." + p + "\\." + p + "\\." + p + "\\/([12]?[0-9])|([01]{1,32}))\\s*(?:#.*)?$";
@@ -86,7 +87,7 @@ function $refresh(){
 		  + parseInt(s.substr(16, 8), 2) + '.'
 		  + parseInt(s.substr(24, 8), 2) + '/'
 		  + l;
-		result += s + '\r\n';
+		result += s + LNND;
 	}
 	function dump(o, bits, bit){
 		bits += bit;
@@ -106,14 +107,15 @@ function $refresh(){
 			buffer = '';
 		}else{
 			if(!m[1]){
-				buffer += '\r\n';
+				buffer += LNND;
 			}else{
 				if(m[2]){
-					result += line + '\r\n';
+					result += buffer + line + LNND;
+					buffer = '';
 				}else{
 					dump(o, '', 0), dump(o, '', 1);
 					o = merger(bits);
-					buffer += line + '\r\n';
+					buffer += line + LNND;
 				}
 			}
 			continue;
@@ -121,7 +123,7 @@ function $refresh(){
 		try{
 			o.push(line);
 		}catch(ex){
-			buffer += "#[ERROR]Unrecognizable: " + line + '\r\n';
+			buffer += "#[ERROR]Unrecognizable: " + line + LNND;
 		}
 	}
 	dump(o, '', 0), dump(o, '', 1);
