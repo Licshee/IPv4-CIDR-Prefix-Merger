@@ -92,7 +92,7 @@ function $refresh(){
 		bits += bit;
 		o = o[bit];
 		if(o){
-			dump(o, bits, 0), dump(o, bits, 1)
+			dump(o, bits, 0), dump(o, bits, 1);
 		}else if(o === null) append(bits);
 	}
 
@@ -111,8 +111,9 @@ function $refresh(){
 				buffer += LNND;
 			}else{
 				if(m[2]){
-					result += buffer + line + LNND;
+					if(!/^\s*$/.test(buffer)) result += buffer;
 					buffer = '';
+					result += line + LNND;
 				}else{
 					dump(s, '', 0), dump(s, '', 1);
 					s = merger(bits);
